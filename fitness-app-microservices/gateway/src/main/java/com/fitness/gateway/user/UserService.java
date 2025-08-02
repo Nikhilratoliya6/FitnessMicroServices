@@ -41,6 +41,12 @@ public class UserService {
         }
 
     public Mono<UserResponse> registerUser(RegisterRequest request) {
+        if (request == null) {
+            return Mono.error(new IllegalArgumentException("Register request cannot be null"));
+        }
+        if (request.getEmail() == null || request.getEmail().trim().isEmpty()) {
+            return Mono.error(new IllegalArgumentException("Email cannot be null or empty"));
+        }
         log.info("Calling User Registration API for email: {}", request.getEmail());
         return userServiceWebClient.post()
                 .uri(REGISTER_USER_ENDPOINT)
