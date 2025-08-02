@@ -5,10 +5,23 @@
 [![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-2024.0.0-blue.svg)](https://spring.io/projects/spring-cloud)
 [![Maven](https://img.shields.io/badge/Maven-3.9.9-red.svg)](https://maven.apache.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-6.0-green.svg)](https://www.mongodb.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
 
-A comprehensive microservices-based fitness tracking application built with Spring Boot, Spring Cloud, and Keycloak authentication. This system provides personalized fitness recommendations, activity tracking, and user management through a scalable microservices architecture.
+A modern, cloud-native fitness tracking platform built with microservices architecture. This system combines Spring Cloud infrastructure with AI-powered recommendations, real-time activity tracking, and secure user management to deliver a comprehensive fitness solution.
 
----
+## 📑 Table of Contents
+1. [Project Overview](#-1-project-overview)
+2. [Technology Stack](#-2-technology-stack)
+3. [Architecture](#-3-architecture)
+4. [Features](#-4-features)
+5. [Services](#-5-services)
+6. [Getting Started](#-6-getting-started)
+7. [API Documentation](#-7-api-documentation)
+8. [Security](#-8-security)
+9. [Monitoring](#-9-monitoring)
+10. [Contributing](#-10-contributing)
 
 ## 📌 1. Project Overview
 
@@ -27,14 +40,16 @@ A comprehensive microservices-based fitness tracking application built with Spri
 ## 🔧 2. Technology Stack
 
 ### Backend Technologies
-- **Java 23** - Primary programming language
-- **Spring Boot 3.4.3** - Application framework
-- **Spring Cloud 2024.0.0** - Microservices infrastructure
-- **Maven 3.9.9** - Dependency management and build tool
-- **Keycloak** - Identity and Access Management
-- **Netflix Eureka** - Service discovery
-- **Spring Cloud Gateway** - API Gateway
-- **Spring Cloud Config** - Centralized configuration
+- **Java 23**: Latest JDK with enhanced features
+- **Spring Boot 3.4.3**: Modern application framework with native support
+- **Spring Cloud 2024.0.0**: Full microservices infrastructure
+  - Spring Cloud Config: Centralized configuration
+  - Spring Cloud Gateway: API Gateway with routing
+  - Netflix Eureka: Service discovery
+  - Spring Cloud Circuit Breaker: Resilience4j integration
+  - Spring Cloud Stream: Event-driven architecture
+- **Keycloak**: Robust identity and access management
+- **Maven 3.9.9**: Dependency management and build automation
 
 ### Databases & Storage
 - **PostgreSQL** - Primary database for user data
@@ -53,16 +68,63 @@ A comprehensive microservices-based fitness tracking application built with Spri
 
 The system follows a microservices architecture pattern with clear separation of concerns:
 
-### Service Descriptions
+### Service Architecture
 
-| Service | Port | Purpose | Database |
-|---------|------|---------|----------|
-| **Config Server** | 8888 | Centralized configuration management | None |
-| **Eureka Server** | 8761 | Service discovery and registration | None |
-| **API Gateway** | 8080 | Request routing, authentication, rate limiting | None |
-| **User Service** | 8081 | User management, profiles, authentication | PostgreSQL |
-| **Activity Service** | 8082 | Fitness activity logging and retrieval | MongoDB |
-| **AI Service** | 8083 | Personalized fitness recommendations | MongoDB |
+| Service | Port | Technologies | Description |
+|---------|------|--------------|-------------|
+| **Config Server** | 8888 | Spring Cloud Config | Centralized configuration management, Git-backed config |
+| **Eureka Server** | 8761 | Netflix Eureka | Service discovery, registration, and load balancing |
+| **API Gateway** | 8080 | Spring Cloud Gateway | Request routing, authentication, rate limiting, circuit breaking |
+| **User Service** | 8081 | Spring Boot, PostgreSQL | User management, profiles, OAuth2/OpenID Connect |
+| **Activity Service** | 8082 | Spring Boot, MongoDB | Activity tracking, metrics, real-time updates |
+| **AI Service** | 8083 | Spring Boot, Gemini AI | ML-powered recommendations, workout planning |
+| **Frontend** | 5173 | React, Redux, Vite | Modern web interface with real-time updates |
+
+### Key Features by Service
+
+#### Config Server (Port: 8888)
+- Git-backed configuration
+- Encryption/decryption of sensitive properties
+- Dynamic configuration updates
+- Environment-specific configurations
+
+#### Eureka Server (Port: 8761)
+- Automatic service registration
+- Service health monitoring
+- Load balancing
+- Fault tolerance
+
+#### API Gateway (Port: 8080)
+- Authentication & authorization
+- Rate limiting & throttling
+- Circuit breaking
+- Request routing & load balancing
+- CORS configuration
+- API documentation aggregation
+
+#### User Service (Port: 8081)
+- User registration & authentication
+- Profile management
+- Role-based access control
+- OAuth2/OpenID Connect with Keycloak
+- Email verification
+- Password recovery
+
+#### Activity Service (Port: 8082)
+- Activity logging & tracking
+- Real-time metrics
+- Progress monitoring
+- Historical data analysis
+- Performance statistics
+- Workout plans
+
+#### AI Service (Port: 8083)
+- Personalized recommendations
+- Workout optimization
+- Progress analysis
+- Goal tracking
+- Integration with Gemini AI
+- Machine learning models
 
 ### System Architecture Diagram
 
