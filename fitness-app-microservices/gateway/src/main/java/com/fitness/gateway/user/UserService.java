@@ -11,6 +11,8 @@ import reactor.core.publisher.Mono;
 @Service
 public class UserService {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
+    private static final String VALIDATE_USER_ENDPOINT = "/api/users/{userId}/validate";
+    private static final String REGISTER_USER_ENDPOINT = "/api/users/register";
     private final WebClient userServiceWebClient;
 
     public UserService(WebClient userServiceWebClient) {
@@ -20,7 +22,7 @@ public class UserService {
     public Mono<Boolean> validateUser(String userId) {
         log.info("Calling User Validation API for userId: {}", userId);
             return userServiceWebClient.get()
-                    .uri("/api/users/{userId}/validate", userId)
+                    .uri(VALIDATE_USER_ENDPOINT, userId)
                     .retrieve()
                     .bodyToMono(Boolean.class)
                     .onErrorResume(WebClientResponseException.class, e -> {
