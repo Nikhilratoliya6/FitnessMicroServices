@@ -20,6 +20,9 @@ public class UserService {
     }
 
     public Mono<Boolean> validateUser(String userId) {
+        if (userId == null || userId.trim().isEmpty()) {
+            return Mono.error(new IllegalArgumentException("User ID cannot be null or empty"));
+        }
         log.info("Calling User Validation API for userId: {}", userId);
             return userServiceWebClient.get()
                     .uri(VALIDATE_USER_ENDPOINT, userId)
