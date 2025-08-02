@@ -13,6 +13,11 @@ public class UserService {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
     private static final String VALIDATE_USER_ENDPOINT = "/api/users/{userId}/validate";
     private static final String REGISTER_USER_ENDPOINT = "/api/users/register";
+    
+    private static final String ERROR_USER_NOT_FOUND = "USER_NOT_FOUND";
+    private static final String ERROR_INVALID_REQUEST = "INVALID_REQUEST";
+    private static final String ERROR_UNAUTHORIZED = "UNAUTHORIZED";
+    private static final String ERROR_UNKNOWN = "UNKNOWN_ERROR";
     private final WebClient userServiceWebClient;
 
     public UserService(WebClient userServiceWebClient) {
