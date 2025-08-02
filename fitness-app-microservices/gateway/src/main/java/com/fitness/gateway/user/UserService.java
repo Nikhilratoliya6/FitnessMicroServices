@@ -26,10 +26,13 @@ public class UserService {
                     .retrieve()
                     .bodyToMono(Boolean.class)
                     .onErrorResume(WebClientResponseException.class, e -> {
+                        log.error("Error validating user {}: {} - {}", userId, e.getStatusCode(), e.getMessage());
                         if (e.getStatusCode() == HttpStatus.NOT_FOUND)
                             return Mono.error(new RuntimeException("User Not Found: " + userId));
                         else if (e.getStatusCode() == HttpStatus.BAD_REQUEST)
                             return Mono.error(new RuntimeException("Invalid Request: " + userId));
+                        else if (e.getStatusCode() == HttpStatus.UNAUTHORIZED)
+                            return Mono.error(new RuntimeException("Unauthorized access"));
                         return Mono.error(new RuntimeException("Unexpected error: " + e.getMessage()));
                     });
         }
@@ -37,7 +40,7 @@ public class UserService {
     public Mono<UserResponse> registerUser(RegisterRequest request) {
         log.info("Calling User Registration API for email: {}", request.getEmail());
         return userServiceWebClient.post()
-                .uri("/api/users/register")
+                .uri(REGISTER_USER_ENDPOINT)
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(UserResponse.class)
